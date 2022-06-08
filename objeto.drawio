@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="_C3rlTttDqUsIpY1RtUd" name="Página-1">
-        <mxGraphModel dx="1112" dy="183" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1459" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -96,6 +96,30 @@
                         <mxPoint x="360" y="190" as="sourcePoint"/>
                         <mxPoint x="416.1199999999999" y="121.67999999999995" as="targetPoint"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="-200" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="" style="rhombus;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry y="160" width="110" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="endArrow=none;html=1;fontSize=20;strokeWidth=4;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="32">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="230" y="200" as="sourcePoint"/>
+                        <mxPoint x="110" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="" style="endArrow=none;html=1;fontSize=20;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=4;" edge="1" parent="1" source="32" target="31">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="252" y="240" as="sourcePoint"/>
+                        <mxPoint x="170" y="310" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="Tiene" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="25" y="185" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="Dueño" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=23;" vertex="1" parent="1">
+                    <mxGeometry x="-170" y="185" width="60" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
