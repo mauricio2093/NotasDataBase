@@ -1,2 +1,2 @@
 # NotasDataBase
-bases de datos clases platzi
+bases de datos clases platzi MySql
