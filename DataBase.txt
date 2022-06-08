@@ -319,4 +319,24 @@ Insert
 Update
 Delete
 Select
+---------------------
+On update: Significa qué pasará con las relaciones cuando una de estas sea modificada en sus campos relacionados, Por ejemplo, pueden utilizarse los valores:
+cascade: Si el id de un usuario pasa de 11 a 12, entonces la relacion se actualizará y el post buscará el id nuevo en lugar de quedarse sin usuario.
+_ restrict: _Si el id de un usuario pasa de 11 a 12, no lo permitirá hasta que no sean actualizados antes todos los post relacionados.
+set null Si el id de un usuario pasa de 11 a 12, entonces los post solo no estará relacionados con nada.
+no action: Si el id de un usuario pasa de 11 a 12, no se hará nada. Solo se romperá la relación.
+On delete
+_ cascade: Si un usuario es eliminado entonces se borrarán todos los post relacionados.
+restrict: No se podrá eliminar un usuario hasta que sean eliminados todos su post relacionados.
+_ set null: Si un usuario es eliminado, entonces los post solo no estará relacionados con nada.
+no action: Si un usuario es eliminado, no se hará nada. Solo se romperá la relación.
 
+-----------------------------
+Las consultas en una base de datos juegan un papel muy fundamental, puesto que facilitan de manera considerable los procesos en cualquier empresa.
+ETL
+La palabra ETL correspondería al acrónimo de:
+Extract (Extraer)
+Transform (Transformar)
+Load (Cargar)
+ETL hace parte del proceso de integración de datos, mas aun es un componente muy importante que completa el resultado final en la relación 
+de aplicaciones y sistemas.
