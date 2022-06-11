@@ -1,16 +1,20 @@
 -- GROUP BY
-SELECT	estatus, COUNT(*) AS post_number
-FROM		posts
-GROUP BY estatus;
+SELECT	status, COUNT(*) AS post_number
+FROM		post
+GROUP BY status;
 
-SELECT	YEAR(fecha_publicacion) AS post_year, COUNT(*) AS post_number
-FROM		posts
+SELECT	YEAR(date_post) AS post_year, COUNT(*) AS post_number
+FROM		post
 GROUP BY post_year;
 
-SELECT	MONTHNAME(fecha_publicacion) AS post_month, COUNT(*) AS post_number
-FROM		posts
+SELECT	MONTHNAME(date_post) AS post_month, COUNT(*) AS post_number
+FROM		post
 GROUP BY post_month;
 
-SELECT	estatus, MONTHNAME(fecha_publicacion) AS post_date, COUNT(*) AS post_number
-FROM		posts
-GROUP BY estatus, post_date;
+SELECT	status, MONTHNAME(date_post) AS post_date, COUNT(*) AS post_number
+FROM		post
+GROUP BY status, post_date;
+
+SELECT	status, SUM(id) AS suma_id
+FROM		post
+GROUP BY status;

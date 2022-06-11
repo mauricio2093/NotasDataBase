@@ -6,64 +6,64 @@
 -- Los filtros que quiero que mis datos agrupados tengan HAVING
 
 -- ¿Cuántos tags tienen cada post?
-SELECT  posts.titulo, COUNT(*) AS num_etiquetas
-FROM    posts
-    INNER JOIN posts_etiquetas ON posts.id = posts_etiquetas.post_id
-    INNER JOIN etiquetas ON etiquetas.id = posts_etiquetas.etiqueta_id
-GROUP BY posts.id;
+SELECT  post.title, COUNT(*) AS num_labels
+FROM    post
+    INNER JOIN post_labels ON post.id = post_labels.post_id
+    INNER JOIN labels ON labels.id = post_labels.label_id
+GROUP BY post.id;
 
 -- ¿Cuál es el tag que mas se repite?
-SELECT  etiquetas.nombre_etiqueta, COUNT(*) AS ocurrencias
-FROM etiquetas
-    INNER JOIN posts_etiquetas ON etiquetas.id = posts_etiquetas.etiqueta_id
-GROUP BY etiquetas.id
+SELECT  labels.label, COUNT(*) AS ocurrencias
+FROM labels
+    INNER JOIN post_labels ON labels.id = post_labels.label_id
+GROUP BY labels.id
 ORDER BY ocurrencias DESC;
 
 -- Los tags que tiene un post separados por comas
-SELECT  posts.titulo, GROUP_CONCAT(nombre_etiqueta)
-FROM    posts
-    INNER JOIN posts_etiquetas ON posts.id = posts_etiquetas.post_id
-    INNER JOIN etiquetas ON etiquetas.id = posts_etiquetas.etiqueta_id
-GROUP BY posts.id;
+SELECT  post.title, GROUP_CONCAT(label)
+FROM    post
+    INNER JOIN post_labels ON post.id = post_labels.post_id
+    INNER JOIN labels ON labels.id = post_labels.label_id
+GROUP BY post.id;
 
--- ¿Que etiqueta no tiene ningun post asociado?
+-- ¿Que label no tiene ningun post asociado?
 SELECT	*
-FROM	etiquetas 
-	LEFT JOIN posts_etiquetas on etiquetas.id = posts_etiquetas.etiqueta_id
-WHERE	posts_etiquetas.etiqueta_id IS NULL;
+FROM	labels 
+	LEFT JOIN post_labels on labels.id = post_labels.label_id
+WHERE	post_labels.label_id IS NULL;
 
--- Las categorías ordenadas por numero de posts
-SELECT c.nombre_categoria, COUNT(*) AS cant_posts
-FROM    categorias AS c
-    INNER JOIN posts AS p on c.id = p.categoria_id
+-- Las categorías ordenadas por numero de post
+SELECT c.category, COUNT(*) AS cant_post
+FROM    categorys AS c
+    INNER JOIN post AS p on c.id = p.category_id
 GROUP BY c.id
-ORDER BY cant_posts DESC;
+ORDER BY cant_post DESC;
 
--- ¿Cuál es la categoría que tiene mas posts?
-SELECT c.nombre_categoria, COUNT(*) AS cant_posts
-FROM    categorias AS c
-    INNER JOIN posts AS p on c.id = p.categoria_id
+-- ¿Cuál es la categoría que tiene mas post?
+SELECT c.category, COUNT(*) AS cant_post
+FROM    categorys AS c
+    INNER JOIN post AS p on c.id = p.category_id
 GROUP BY c.id
-ORDER BY cant_posts DESC
+ORDER BY cant_post DESC
 LIMIT 1;
 
 -- ¿Que usuario ha contribuido con mas post?
-SELECT u.nickname, COUNT(*) AS cant_posts
+SELECT u.nickname, COUNT(*) AS cant_post
 FROM    usuarios AS u
-    INNER JOIN posts AS p on u.id = p.usuario_id
+    INNER JOIN post AS p on u.id = p.usuario_id
 GROUP BY u.id
-ORDER BY cant_posts DESC
+ORDER BY cant_post DESC
 LIMIT 1;
 
 -- ¿De que categorías escribe cada usuario?
-SELECT u.nickname, COUNT(*) AS cant_posts,  GROUP_CONCAT(nombre_categoria)
+SELECT u.nickname, COUNT(*) AS cant_post,  GROUP_CONCAT(category)
 FROM    usuarios AS u
-    INNER JOIN posts AS p ON u.id = p.usuario_id
-    INNER JOIN categorias AS c ON c.id = p.categoria_id
+    INNER JOIN post AS p ON u.id = p.usuario_id
+    INNER JOIN categorys AS c ON c.id = p.category_id
 GROUP BY u.id;
 
 -- ¿Que usuario no tiene ningun post asociado?
 SELECT	*
 FROM	usuarios 
-	LEFT JOIN posts on usuarios.id = posts.usuario_id
-WHERE	posts.usuario_id IS NULL
+	LEFT JOIN post on usuarios.id = post.usuario_id
+WHERE	post.usuario_id IS NULL

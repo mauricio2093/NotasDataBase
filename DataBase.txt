@@ -340,3 +340,158 @@ Transform (Transformar)
 Load (Cargar)
 ETL hace parte del proceso de integración de datos, mas aun es un componente muy importante que completa el resultado final en la relación 
 de aplicaciones y sistemas.
+
+
+--------------------------------
+WHERE es la sentencia que nos ayuda a filtrar tuplas o registros dependiendo de las características que elegimos.
+
+La propiedad LIKE nos ayuda a traer registros de los cuales conocemos sólo una parte de la información.
+La propiedad BETWEEN nos sirve para arrojar registros que estén en el medio de dos. Por ejemplo los registros con id entre 20 y 30.
+
+-------------------------------
+La sentencia ORDER BY tiene que ver con el ordenamiento de los datos dependiendo de los criterios que quieras usar.
+
+ASC sirve para ordenar de forma ascendente.
+DESC sirve para ordenar de forma descendente.
+LIMIT se usa para limitar la cantidad de resultados que arroja el query.
+HAVING tiene una similitud muy grande con WHERE, sin embargo el uso de ellos depende del orden. Cuando se quiere seleccionar tuplas agrupadas únicamente se puede hacer con HAVING.
+
+Las consultas anidadas son la mejor opción cuando los valores dependen de otras tablas, y estas no se encuentran relacionadas entre si.
+
+Las consultas anidadas son la mejor opción para casos de INSERT, DELETE, UPDATE, cuya condición dependa del esenario explicado en el punto anterior
+
+Los JOINS son la mejor opción para casos de SELECT
+
+Los Nested queries significan que dentro de un query podemos hacer otro query. Esto sirve para hacer join de tablas, estando una en memoria. También teniendo un query como condicional del otro.
+
+Este proceso puede ser tan profundo como quieras, teniendo infinitos queries anidados.
+Se le conoce como un producto cartesiano ya que se multiplican todos los registros de una 
+tabla con todos los del nuevo query. Esto provoca que el query sea difícil de procesar por lo 
+pesado que puede resultar.
+
+SELECT: Lo que quieres mostrar
+Nickname
+Titulo del post
+FROM: De dónde voy a tomar los datos
+Tabla usuarios y post
+WHERE: Los filtros de los datos que quieres mostrar
+Deben de ser de edgar@com
+GROUP BY: Los rubros por los que me interesa agrupar la información
+No deseo agrupar
+ORDER BY: El orden en que quiero presentar mi información
+por fecha de publicación
+HAVING: Los filtros que quiero que mis datos agrupados tengan
+SELECT u.nickname, p.titulo FROM usuarios u inner join posts p ON u.id=p.usuario_id where u.email="edgar@com" ORDER BY p.fecha_publicacion;
+
+Respecto a las bases de datos no relacionales, no existe un solo tipo aunque se engloben en una sola categoría.
+
+Tipos de bases de datos no relacionales:
+
+Clave - valor: Son ideales para almacenar y extraer datos con una clave única. Manejan los diccionarios de manera excepcional. Ejemplos: DynamoDB, Cassandra.
+Basadas en documentos: Son una implementación de clave valor que varía en la forma semiestructurada en que se trata la información. Ideal para almacenar datos JSON y XML. Ejemplos: MongoDB, Firestore.
+Basadas en grafos: Basadas en teoría de grafos, sirven para entidades que se encuentran interconectadas por múltiples relaciones. Ideales para almacenar relaciones complejas. Ejemplos: neo4j, TITAN.
+En memoria: Pueden ser de estructura variada, pero su ventaja radica en la velocidad, ya que al vivir en memoria la extracción de datos es casi inmediata. Ejemplos: Memcached, Redis.
+Optimizadas para búsquedas: Pueden ser de diversas estructuras, su ventaja radica en que se pueden hacer queries y búsquedas complejas de manera sencilla. Ejemplos: BigQuery, Elasticsearch.
+Clases relacionad
+
+----------------------------------------------
+Tipos de datos en Firestore:
+
+String: Cualquier tipo de valor alfanumérico
+
+Number: Soporta enteros y flotantes.
+
+Boolenan: Los clásicos valores True y False
+
+Map: Permite agregar un documento dentro de otro.
+
+Array: Permite agregar un conjunto de datos (soporte multi type) sin nombre e identificador.
+
+Null: Indica que no se ha definido un valor.
+
+Timestamp: Permite almacenar fechas (guarda el año, mes, día y hora).
+
+Geopoint: Guarda una localización geográfica (coordenadas latitud-longitud).
+
+Reference: Permite referencia un documento (relaciona dos documentos, no importa su colección).
+
+
+------------------------------------------------------------------------
+
+Un top level collection se utilizaria para relaciones de tipo “agregacion”. 
+Mientras que una sub collection se utilizaria para relaciones tipo “composicion”.
+
+Por ejemplo:
+
+Tenemos Estudiantes, Cursos y Notas. Los estudiantes tiene cursos y los cursos tiene estudiantes. 
+Si se elimina un curso los estudiantes no deben ser eliminados. Lo mismo si se elimina un estudiante los cursos no deben ser elimiandos. Esto es una relacion de agregacion. Aqui se usaria top level collection para estudiantes y cursos.
+
+Los estudiantes tienen notas y las notas pertenecen a un estudiante. Si se elimina un estudiante, 
+tiene sentido eliminar las notas. Esto es una relacion de composicion. Aqui se usarian las subcollections. El estudiante tendría una subcollection de notas.
+
+
+------------------------
+
+Dentro de las bases de datos relacionales tenemos diferentes niveles de datos. 
+En primer lugar tenemos las Bases de Datos o Esquemas como repositorios donde 
+vivirán los datos que nos interesa guardar. Dentro del esquema existen las Tablas 
+que provienen del concepto de entidades; y a su vez dentro de las tablas tenemos 
+las tuplas o renglones.
+
+Cuando trabajamos con bases de datos basadas en documentos como Firestore, 
+aún existe la figura de la base de datos, sin embargo cambiaremos las tablas en favor 
+de las colecciones y las tuplas en lugar de los documentos.
+
+Recuerda:
+
+Tabla -> Colección
+
+Tupla -> Documento
+
+Dentro de las Colecciones existen 2 grandes tipos. Las Top level collection o colecciones 
+de nivel superior y las subcollections o subcolecciones. Estas últimas viven únicamente 
+dentro de un documento padre.
+
+¿Cómo saber cuál escoger?
+
+Para determinar si tu colección debe ser top level o subcolección no hay una regla escrita 
+en piedra y más bien tiene que ver con el caso de uso en particular y con la experiencia que 
+hayas ganado como desarrollador.
+
+Lo cierto es que no hay una sola forma de estructurar nuestra DB basada en documentos, 
+y por tanto no existe una respuesta correcta, sin embargo a continuación te ofrezco un par de 
+reglas guía que puedes utilizar para transformar tu proyecto que ya trabajaste en bases de datos 
+relacionales en un proyecto no relacional.
+
+Regla 1. Piensa en la vista de tu aplicación
+
+La primera pista que te puedo dar es que pienses en un inicio en la manera en que los datos serán 
+extraídos. En el caso de una aplicación, la mejor forma de pensarlo es en términos de las vistas 
+que vas a mostrar a un momento determinado en la aplicación.
+
+Es decir, al armar la estructura en la base de datos que sea un espejo o que al menos contenga todos 
+los datos necesarios para llenar las necesidades que tiene nuestra parte visual en la aplicación.
+
+En el caso de Platziblog por ejemplo si tienes una vista de un blog post individual, generalmente 
+conviene mostrar además de los datos inherentes al post como el contenido, datos adicionales como 
+las etiquetas que tiene o por ejemplo el autor (o autores si es colaborativo), en este caso tal vez 
+convenga guardar estas dos “entidades” (autores y etiquetas) como subcolecciones de cada documento 
+blog post.
+
+Regla 2. La colección tiene vida propia
+
+Esta regla se refiere a que la excepción a la regla 1 es cuando tenemos un caso en que la “entidad” 
+que tiene necesidad de vivir y modificarse constantemente de manera independiente a las otras colecciones. 
+Por ejemplo en Platziblog podemos en el ejemplo anterior hacer una excepción a autores porque nos 
+conviene tenerlas como top level collection en el sentido que se añadan, borren, cambien o listen los 
+usuarios sin depender del blog post.
+
+Experimenta aplicando estas dos reglas a un proyecto que ya conozcas en una base de datos relacional 
+y trata de convertirla en un proyecto de Firestore y comentanos los retos a los que te enfrentaste.
+
+------------------------------------------- BASES DE DATOS EN LA VIDA REAL
+
+Hoy en dia, se utilizan diversos tipos de bases de datos segun el problema que se quiera resolver:
+Las bases de datos relacionales, durante mucho tiempo, fueron utilizadas para resolver todo tipo de situaciones, pero al aumentar enormemente el numero de datos a manejar, se volveron ineficientes en muchos casos.
+Firestore o MongoDB nos permiten obtener los datos actuales de la aplicacion de manera simple. Sin embargo, no nos permite hacer, por ejemplo, queries muy complejos.
+En una misma disciplina, es probable que haya que utilizar mas de un tipo de bases de datos.
